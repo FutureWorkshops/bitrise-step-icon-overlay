@@ -29,6 +29,14 @@ inputs:
       is_expand: true
       is_required: true
       value_options: []
+  - project_location: '.'
+    opts:
+      title: "Project Location"
+      summary: Folder where the project and the asset files are stored in the repository.
+      description: Folder where the project and the asset files are stored in the repository.
+      is_expand: true
+      is_required: true
+      value_options: []
   - overlay_text: '$BITRISE_GIT_COMMIT'
     opts:
       title: "Overlay text"

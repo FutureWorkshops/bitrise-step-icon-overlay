@@ -99,10 +99,12 @@ function trim_string {
 # Validate parameters
 echo_info "Configs:"
 echo_details "* iconsbundle_name: $iconsbundle_name"
+echo_details "* project_location: $project_location"
 echo_details "* overlay_text: $overlay_text"
 echo
 
 validate_required_input "iconsbundle_name" $iconsbundle_name
+validate_required_input "project_location" $project_location
 validate_required_input "overlay_text" $overlay_text
 
 
@@ -118,7 +120,7 @@ echo_info "Setting up app icon's overlay"
 
 trimmed_overlay=`echo $overlay_text | cut -c1-6`
 
-image_files=`find . -name "$iconsbundle_name"`
+image_files=`find "$project_location" -name "$iconsbundle_name"`
 
 [[ -d "${image_files}" ]] || echo_fail "Unable to find the icon bundle named: $iconsbundle_name"
 
