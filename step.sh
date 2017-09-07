@@ -120,32 +120,33 @@ echo_info "Setting up app icon's overlay"
 
 trimmed_overlay=`echo $overlay_text | cut -c1-6`
 
-image_files=`find "$project_location" -name "$iconsbundle_name"`
+find "$project_location" -type d -name "$iconsbundle_name" | while read -r image_files; do
 
-[[ -d "${image_files}" ]] || echo_fail "Unable to find the icon bundle named: $iconsbundle_name"
+  cd "${image_files}"
+  [[ $(ls -A *.png) ]] || echo_fail "Xcasset present but empty. Forgot to add app icons?"
 
-cd "$image_files"
-[[ $(ls -A *.png) ]] || echo_fail "Xcasset present but empty. Forgot to add app icons?"
+  export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+  for base_file in *.png; do
+    overlay="$trimmed_overlay"
+    echo_info "- Processing icon at: $base_file"
+    target_file="${base_file}_temp"
 
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-for base_file in *.png; do
-  overlay="$trimmed_overlay"
-  echo_info "- Processing icon at: $base_file"
-  target_file="${base_file}_temp"
+    width=`identify -format %w "${base_file}"`
+    overlay_height=`echo "${width}/2.85" | bc`
 
-  width=`identify -format %w "${base_file}"`
-  overlay_height=`echo "${width}/2.85" | bc`
+    convert -background '#0008' \
+      -fill white \
+      -gravity center \
+      -size "${width}x${overlay_height}" \
+      caption:"${overlay}" \
+      "${base_file}" +swap \
+      -gravity south \
+      -composite \
+      "${target_file}"
 
-  convert -background '#0008' \
-    -fill white \
-    -gravity center \
-    -size "${width}x${overlay_height}" \
-    caption:"${overlay}" \
-    "${base_file}" +swap \
-    -gravity south \
-    -composite \
-    "${target_file}"
-
-  rm "$base_file"
-  mv "$target_file" "$base_file"
+    rm "$base_file"
+    mv "$target_file" "$base_file"
+  done
+  cd -
 done
+
