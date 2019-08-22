@@ -6,9 +6,10 @@ source_code_url: https://github.com/FutureWorkshops/bitrise-step-icon-overlay
 host_os_tags:
   - osx-10.14
 project_type_tags:
-  - utility
+  - ios
+  - xamarin
 type_tags:
-  - xcode
+  - utility
 is_requires_admin_user: true
 is_always_run: false
 is_skippable: false
