@@ -4,11 +4,9 @@ description: ''
 website: https://github.com/FutureWorkshops/bitrise-step-icon-overlay
 source_code_url: https://github.com/FutureWorkshops/bitrise-step-icon-overlay
 host_os_tags:
-  - osx-10.10
-  - osx-10.9
+  - osx-10.14
 project_type_tags:
-  - ios
-  - xamarin
+  - utility
 type_tags:
   - xcode
 is_requires_admin_user: true
@@ -28,7 +26,6 @@ inputs:
       description: The name of the appiconset file including the extension '.appiconset'
       is_expand: true
       is_required: true
-      value_options: []
   - project_location: '.'
     opts:
       title: "Project Location"
@@ -36,7 +33,6 @@ inputs:
       description: Folder where the project and the asset files are stored in the repository.
       is_expand: true
       is_required: true
-      value_options: []
   - overlay_text: '$BITRISE_GIT_COMMIT'
     opts:
       title: "Overlay text"
@@ -44,7 +40,6 @@ inputs:
       description: "The first six characters of this text will be displayed at the bottom on top of the app's icon image"
       is_expand: true
       is_required: true
-      value_options: []
  
 outputs:
  
